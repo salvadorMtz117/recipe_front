@@ -5,7 +5,7 @@ import { CategoriesComponent } from './categories/categories.component'
 
 const routes: Routes = [
     { path: 'inicio',component: PagesComponent},
-    { path: 'categorias',component: CategoriesComponent},
+    { path: 'categorias/:id',component: CategoriesComponent},
     { path: "**", redirectTo: "inicio" }
 ]
 

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgbCarouselConfig, NgbSlideEvent, NgbSlideEventSource, NgbCarousel } from '@ng-bootstrap/ng-bootstrap';
 import { UtilsService } from '../services/utils.service';
 import { environment } from'../../../environments/environment'
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -25,7 +26,8 @@ export class LayoutComponent implements OnInit {
 
   constructor(
       config: NgbCarouselConfig,
-      private utilsService: UtilsService
+      private utilsService: UtilsService,
+      private router: Router
     ) {
 		config.interval = 10000;
 		config.wrap = false;
@@ -56,7 +58,7 @@ export class LayoutComponent implements OnInit {
     this.utilsService.getCategories().subscribe((data: any) => {
       if(data.code == 200){
         data.categorias.forEach((element: any[]) => {
-          element[2] = `${environment.s3_bucketURL}${element[2]}`
+          element[3] = `${environment.s3_bucketURL}${element[3]}`
           this.categories.push(element);
         });
       } else {
@@ -77,6 +79,11 @@ export class LayoutComponent implements OnInit {
         console.log(data);
       }
     });
+  }
+
+  btnCatorgoryDetail(id: any){
+    console.log(id);
+    this.router.navigate([`/categorias/${id}`],{state: id});
   }
 
 
