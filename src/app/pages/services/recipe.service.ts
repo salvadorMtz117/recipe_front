@@ -43,4 +43,11 @@ export class RecipeService {
   getRecipePDF(id: any): Observable<any> {
     return this.http.get(`${environment.url_api}recipe/GeneratePDFRecipe?id=${id}`,httpOptions);
   };
+
+  getRecipiesBySearch(string: any): Observable<any> {
+    const body = {
+      "cadena": string
+    }
+    return this.http.post(`${environment.url_api}recipe/SearchRecipe`,body,httpOptions);
+  };
 }

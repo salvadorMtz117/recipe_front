@@ -42,15 +42,39 @@
           <li *ngFor="let item of recipeSteps">{{item}}</li>
         </ol>
       </article>
+      <hr>
+      <blockquote class="blockquote">
+        <p>Comentarios</p>
+      </blockquote>
       <article class="blog-post" *ngIf="recipeComments && recipeComments.length > 0">
-        <hr>
-        <h2 class="display-5 link-body-emphasis mb-1">Comentarios</h2>
-        <p *ngFor="let comment of recipeComments">{{comment.comment}}</p>
+        <ul>
+          <li *ngFor="let comment of recipeComments">
+            <div class="row">
+              <div class="col-md-10">
+                <!-- <h5 class="display-5 link-body-emphasis mb-1">{{recipeComments[0].user_name}}</h5> -->
+                <p>{{comment.comment}}</p>
+              </div>
+            </div>
+          </li>
+        </ul>
       </article>
-      <nav class="blog-pagination" aria-label="Pagination">
-        <a class="btn btn-outline-primary rounded-pill" href="#">Older</a>
-        <a class="btn btn-outline-secondary rounded-pill disabled" aria-disabled="true">Newer</a>
-      </nav>
+      <div class="input-group">
+        <span class="input-group-text">Comentar receta</span>
+        <textarea [(ngModel)]="comment" class="form-control" aria-label="With textarea"></textarea>
+      </div>
+      <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+        <div class="input-group">
+          <pre style="margin-right: 10px;">Calificar receta</pre>
+          <ngb-rating
+            title="Califica receta"
+            [max]="5"
+            [(rate)]="ranking"
+          />
+        </div>
+        <div style="width: 220px;">
+          <a class="btn btn-outline-secondary rounded-pill" aria-disabled="false" (click)="sendComment()">Enviar comentarios</a>
+        </div>
+      </div>
     </div>
     <div class="col-md-4">
       <div class="position-sticky" style="top: 2rem;">

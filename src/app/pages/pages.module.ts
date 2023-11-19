@@ -6,6 +6,9 @@ import { PagesComponent } from './pages.component';
 import { LoginComponent } from './login/login.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { DetailComponent } from './detail/detail.component';
+import { SearchComponent } from './search/search.component';
+import { ToastrModule } from 'ngx-toastr';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -13,13 +16,16 @@ import { DetailComponent } from './detail/detail.component';
     LayoutComponent,
     LoginComponent,
     CategoriesComponent,
-    DetailComponent
+    DetailComponent,
+    SearchComponent
   ],
   imports: [
     CommonModule,
     NgbCarousel,
     NgbCarouselModule,
-    NgbRating
+    NgbRating,
+    ToastrModule.forRoot(),
+    FormsModule
   ]
 })
 export class PagesModule { }

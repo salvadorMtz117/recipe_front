@@ -14,8 +14,12 @@
           <p>Recibe mensualmente nuestras sugerencias en recetas</p>
           <div class="d-flex flex-column flex-sm-row w-100 gap-2">
             <label for="newsletter1" class="visually-hidden">Correo electrónico</label>
-            <input id="newsletter1" type="text" class="form-control" placeholder="Email address">
-            <button class="btn btn-primary" type="button">Suscribirse</button>
+            <input id="newsletter1" type="text" class="form-control" placeholder="Correo electrónico" [(ngModel)]="emailNewsletter" [ngModelOptions]="{standalone: true}">
+            <button class="btn btn-primary" type="button" (click)="subscribeNewsletter()">Suscribirse
+            </button>
+            <div class="spinner-grow" role="status" *ngIf="sendNewsletter">
+              <span class="visually-hidden" style="width: 10px; height: 10px;">Loading...</span>
+            </div>
           </div>
         </form>
       </div>

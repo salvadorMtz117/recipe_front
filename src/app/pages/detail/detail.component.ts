@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RecipeService } from '../services/recipe.service';
 import { environment } from 'src/environments/environment';
+import { ToastrService } from 'ngx-toastr';
+import { UtilsService } from '../services/utils.service';
 
 @Component({
   selector: 'app-detail',
@@ -17,11 +19,15 @@ export class DetailComponent implements OnInit {
   recipeList: any = [];
   categoryDetail: any = {};
   generatePdf: boolean = false;
+  ranking: number = 1;
+  comment: string = "";
 
   constructor(
     private _router: Router,
     private _route: ActivatedRoute,
-    private _service: RecipeService
+    private _service: RecipeService,
+    private _utilsService: UtilsService,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit() {
@@ -101,8 +107,29 @@ export class DetailComponent implements OnInit {
     });
   };
 
+  sendComment(){
+    if (this.comment == "") {
+      this.toastr.error('Por favor ingrese un comentario','Datos incompletos');
+      return;
+    }
+    this._utilsService.sendComment(this.ranking,this.recipeDetail.id,this.comment).subscribe((response) => {
+      if(response.code == 200){
+        this.toastr.success('Gracias por tu comentario', 'Comentario enviado');
+        this.reloadPage();
+      } else {
+        this.toastr.error('Ocurrión un error al intentar enviar tu comentario, por favor intenta más tarde','Error en el envío');
+      }
+    });
+  }
+
   btnDetail(id: any){
     this._router.navigate(['/detalle', id]);
   };
+
+  reloadPage() {
+    this._router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this._router.onSameUrlNavigation = 'reload';
+    this._router.navigate([this._router.url]);
+  }
 
 }
