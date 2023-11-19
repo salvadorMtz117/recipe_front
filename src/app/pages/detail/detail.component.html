@@ -1,0 +1,94 @@
+<main class="container">
+  <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary"
+    [style.backgroundImage]="'url(' + recipeDetail.key_img + ')'"
+    [style.backgroundRepeat]="'no-repeat'"
+    [style.backgroundSize]="'cover'">
+    <div class="col-lg-6 px-0" style="border-radius: 10px"
+    [style.backgroundImage]="'linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5))'">
+      <h1 class="display-4 fst-italic" style=" margin: 10px;">{{recipeDetail.name}}</h1>
+      <p class="lead my-3" style=" margin: 10px;">{{recipeDetail.short_description}}</p>
+    </div>
+  </div>
+  <div class="row g-5">
+    <div class="col-md-8">
+      <article class="blog-post">
+        <h2 class="display-5 link-body-emphasis mb-1">Descripción</h2>
+        <ngb-rating
+          [max]="5"
+          [disabled]="true"
+          [(rate)]="recipeDetail.ranking"
+        />
+        <pre>Ranking: <b>{{ recipeDetail.ranking }}</b></pre>
+        <button type="button" class="btn btn-outline-secondary btnDownload"
+          (click)="getRecipePdf(recipeDetail.id)">Descargar
+          <div class="spinner-border text-secondary" *ngIf="generatePdf" style="margin-left: 5px; width: 13px; height: 13px;" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
+        </button>
+        <hr />
+        <p>{{recipeDetail.long_description}}</p>
+        <hr>
+        <blockquote class="blockquote">
+          <p>Ingredientes</p>
+        </blockquote>
+        <ul>
+          <li *ngFor="let item of recipeIngredients">{{item}}</li>
+        </ul>
+        <hr>
+        <blockquote class="blockquote">
+          <p>Pasos y preparación</p>
+        </blockquote>
+        <ol>
+          <li *ngFor="let item of recipeSteps">{{item}}</li>
+        </ol>
+      </article>
+      <article class="blog-post" *ngIf="recipeComments && recipeComments.length > 0">
+        <hr>
+        <h2 class="display-5 link-body-emphasis mb-1">Comentarios</h2>
+        <p *ngFor="let comment of recipeComments">{{comment.comment}}</p>
+      </article>
+      <nav class="blog-pagination" aria-label="Pagination">
+        <a class="btn btn-outline-primary rounded-pill" href="#">Older</a>
+        <a class="btn btn-outline-secondary rounded-pill disabled" aria-disabled="true">Newer</a>
+      </nav>
+    </div>
+    <div class="col-md-4">
+      <div class="position-sticky" style="top: 2rem;">
+        <div class="p-4 mb-3 bg-body-tertiary rounded">
+          <h4 class="fst-italic">{{categoryDetail.Nombre}}</h4>
+          <p class="mb-0">{{categoryDetail.Detalle}}</p>
+        </div>
+        <div>
+          <h4 class="fst-italic">Te recomendamos las siguientes recetas
+
+          </h4>
+          <ul class="list-unstyled">
+            <li *ngFor="let recipe of recipeList">
+              <a class="d-flex flex-column flex-lg-row gap-3 align-items-start align-items-lg-center py-3 link-body-emphasis text-decoration-none border-top"
+              href="/detalle/{{recipe[0]}}">
+                <img class="bd-placeholder-img card-img-top"
+                  [style.width]="'30%'"
+                  [style.height]="'30%'"
+                  style="border-radius: 5px;"
+                  src="{{recipe[3]}}" aria-label="Placeholder: Thumbnail">
+                <div class="col-lg-8">
+                  <h6 class="mb-0">{{recipe[1]}}</h6>
+                  <small class="text-body-secondary">{{recipe[4]}}</small>
+                  <br>
+                  <ngb-rating
+                    [max]="5"
+                    [disabled]="true"
+                    [(rate)]="recipe[2]"
+                  />
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr class="featurette-divider" style="margin-top: 60px; margin-bottom: 60px;">
+</main>
+
+

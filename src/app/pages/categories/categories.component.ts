@@ -53,5 +53,9 @@ export class CategoriesComponent implements OnInit{
 
   btnReturnHome(){
     this._router.navigate(['/']);
+  };
+
+  btnDetail(id: any){
+    this._router.navigate(['/detalle', id]);
   }
 }

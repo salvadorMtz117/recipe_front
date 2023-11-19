@@ -30,4 +30,17 @@ export class RecipeService {
   getCategoryDetail(id: any): Observable<any> {
     return this.http.get(`${environment.url_api}utils/GetCategoryDetail?id=${id}`,httpOptions);
   };
+
+  /**
+   * Función para obtener el detalle de una receta
+   * @param id Id de receta
+   * @returns Detalle de receta
+   */
+  getRecipeDetail(id: any): Observable<any> {
+    return this.http.get(`${environment.url_api}recipe/GetRecipe?id=${id}`,httpOptions);
+  };
+
+  getRecipePDF(id: any): Observable<any> {
+    return this.http.get(`${environment.url_api}recipe/GeneratePDFRecipe?id=${id}`,httpOptions);
+  };
 }
