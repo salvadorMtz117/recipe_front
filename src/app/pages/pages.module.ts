@@ -9,6 +9,7 @@ import { DetailComponent } from './detail/detail.component';
 import { SearchComponent } from './search/search.component';
 import { ToastrModule } from 'ngx-toastr';
 import { FormsModule } from '@angular/forms';
+import { FavsComponent } from './favs/favs.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { FormsModule } from '@angular/forms';
     LoginComponent,
     CategoriesComponent,
     DetailComponent,
-    SearchComponent
+    SearchComponent,
+    FavsComponent
   ],
   imports: [
     CommonModule,
